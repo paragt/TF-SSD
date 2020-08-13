@@ -14,11 +14,20 @@ The code for this variant are saved in the VGG-SSD subfolder. The function of ea
 
 The current VGG-SSD model uses an input of 300x300 pixels and predicts 80 categories as specified by the COCO dataset. Other than the size of the default boxes at a certain scale and data augmentation techniques, the model and training remains almost the same as those of the SSD paper. 
 
-Following standard protocol, the accuracies of the SSD trained on COCO are reported in terms of the mAP @[0.5:0.95] IoU. In the examples subfolder, we provide the exact command used to train and evaluate the detectors. The example folder also contains results from the [COCO 2019 evaluation server](https://competitions.codalab.org/competitions/20794)
+Following standard protocol, the accuracies of the SSD trained on COCO are reported in terms of the mAP @[0.5:0.95] IoU. In the examples subfolder, we provide the exact command used to train and evaluate the detectors. The example folder also contains results from the [COCO 2019 evaluation server](https://competitions.codalab.org/competitions/20794).  The zip file we submitted to COCO 2019 server can be found [here](https://drive.google.com/file/d/17tIEcc9kxyGEOp3uLaPqOTaEvKJA2Si1/view?usp=sharing).
 
 | Implementation | Trn Set | mAP COCO14 Val | mAP COCO17 test-dev|
 | :--- | :---: | :---: | :---: |
-|[LambdaAI](https://drive.google.com/file/d/1xp7B3WHudEkDjcVSVAaRSa8umQIad69b/view?usp=sharing) | COCO14 Trn | 22.7 | see below |
-|Ours | COCO14 Trn| **24.0** | **23.4** |
+|[LambdaAI](https://drive.google.com/file/d/1xp7B3WHudEkDjcVSVAaRSa8umQIad69b/view?usp=sharing) | COCO14 Trn | 22.7 | see * below |
+|[Ours](https://drive.google.com/file/d/1B-cb7b_3UfEu_HFmlBr1-Uw5EH8m4nOu/view?usp=sharing) | COCO14 Trn| **24.0** | **23.4** |
 
+* According to their [blog](https://lambdalabs.com/blog/how-to-implement-ssd-object-detection-in-tensorflow/) and [demo site](https://lambda-deep-learning-demo.readthedocs.io/en/latest/tutorial/ssd.html#evaluate-ssd-on-mscoco), VGG-SSD300 of LambdaAI implementation can achieve mAP of 21.9 on COCO 17 Val set.
+
+The pretrained VGG net for feature backbone converted to Tensorflow format can be found [here](https://drive.google.com/file/d/1mnJSilb5vfi3yc6bD_cifLSQAEBXEtiI/view?usp=sharing).
+ 
+This implementation uses 12 as the smallest scale (as opposed to 21) of the default (prior/anchor) boxes at stride 16 output of VGG (i.e., conv4_3). We also do not use color distortion for data augmentation, resorting only to ssd_random_crop and random horizontal flips. 
+
+During training, the optimizer minimizes the loss, as defined by [Liu16ECCV], exactly. In order to cope with the large classification loss values initially, due to the normalization by number of deault boxes (*NOT by averaging*), we use a simple warmup learning rate scheme. See train_scripts.sh in examples subfolder for details. We also played with the learning rate schedule a little bit to improve accuracy. 
+
+[Liu16ECCV](https://arxiv.org/abs/1512.02325) Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott E. Reed, Cheng-Yang Fu and Alexander C. Berg (2016). ECCV 2016.
 
