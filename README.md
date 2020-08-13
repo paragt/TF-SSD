@@ -17,8 +17,8 @@ The current VGG-SSD model uses an input of 300x300 pixels and predicts 80 catego
 Following standard protocol, the accuracies of the SSD trained on COCO are reported in terms of the mAP @[0.5:0.95] IoU. In the examples subfolder, we provide the exact command used to train and evaluate the detectors. The example folder also contains results from the [COCO 2019 evaluation server](https://competitions.codalab.org/competitions/20794)
 
 | Implementation | Trn Set | mAP COCO14 Val | mAP COCO17 test-dev|
-| --- | --- | --- | --- |
-|LambdaAI | COCO14 Trn | 22.7 | - |
-|Ours | COCO14 Trn| 24.0 | 23.4 |
+| :--- | :---: | :---: | :---: |
+|LambdaAI | COCO14 Trn | 22.7 | see below |
+|Ours | COCO14 Trn| **24.0** | **23.4** |
 
 
