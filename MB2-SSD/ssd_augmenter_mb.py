@@ -12,7 +12,7 @@ BBOX_CROP_OVERLAP = 0.5         # Minimum overlap to keep a bbox after cropping.
 RANDOM_SUB_SAMPLE = True
 RANDOM_ZOOM_OUT = False #True
 RANDOM_HFLIP = True
-RANDOM_COLOR = True
+RANDOM_COLOR = False
 
 def compute_new_shape(height, width, resolution, smallest_side=False):
   height = tf.to_float(height)
