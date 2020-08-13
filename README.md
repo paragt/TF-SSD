@@ -18,7 +18,7 @@ Following standard protocol, the accuracies of the SSD trained on COCO are repor
 
 | Implementation | Trn Set | mAP COCO14 Val | mAP COCO17 test-dev|
 | :--- | :---: | :---: | :---: |
-|LambdaAI | COCO14 Trn | 22.7 | see below |
+|[LambdaAI](https://drive.google.com/file/d/1xp7B3WHudEkDjcVSVAaRSa8umQIad69b/view?usp=sharing) | COCO14 Trn | 22.7 | see below |
 |Ours | COCO14 Trn| **24.0** | **23.4** |
 
 
