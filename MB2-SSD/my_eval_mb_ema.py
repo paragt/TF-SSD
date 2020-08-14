@@ -120,17 +120,19 @@ def main(args):
         saver = tf.train.Saver(variables_to_restore)
         saver.restore(sess, pretrained_model_path)
         '''
-        start_time = time.time()
 
         #classes , boxes, split_classes, split_boxes = sess.run([classes,boxes,split_classes,split_boxes])
         nbatches = int(nsamples/batch_size)
         
         all_detections = []
         all_image_ids = []
+        all_inf_times = []
         for bb in range(nbatches):
-            #if bb>0 and (bb%100==0): print('batch = ',bb) 
+            start_time = time.time()
             image_ids,imgnames,scores,classes,boxes = sess.run([image_id, filename,topk_scores, topk_labels, topk_bboxes]) 
-            
+            elapsed_time = time.time() - start_time
+            all_inf_times.append(elapsed_time)            
+
             num_images = len(imgnames)
             for i in range(num_images):
                 file_name = imgnames[i][0].decode('ascii')
@@ -164,7 +166,7 @@ def main(args):
                 all_image_ids.append(image_ids[i][0])
 
 
-        elapsed_time = time.time() - start_time
+        elapsed_time = np.sum(all_inf_times) 
         print('elapsed time = '+time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
 
 
