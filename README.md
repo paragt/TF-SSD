@@ -44,8 +44,8 @@ As before we are reporting results in terms of mAP@[0.5:0.95] IoU on different d
 
 | Implementation | Trn Set | mAP COCO14 Val |mAP COCO14 miniVal14|  mAP COCO17 test-dev | Inf time(msec) |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| [TF group](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) | Trn 14, Val 14 \ miniVal14 (?) | - | 21.5 | 20.7 | 28 |
-| [Ours 1](https://drive.google.com/file/d/1HwNKbww72_R7kGxRu2Yody2n2oAQn53A/view?usp=sharing) | Trn 14, Val 14 \ miniVal14 | - | 21.9 | 21.2 | 46 |
+| [TF group](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) | Trn 14, Val 14 \ miniVal14 (?) | - | 21.5 | 20.7 | 46 |
+| [Ours 1](https://drive.google.com/file/d/1HwNKbww72_R7kGxRu2Yody2n2oAQn53A/view?usp=sharing) | Trn 14, Val 14 \ miniVal14 | - | 21.9 | 21.2 | 28 |
 
 Following Tensorflow [Object Detection Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md), we used the same [image ids file](https://github.com/tensorflow/models/blob/master/research/object_detection/data/mscoco_minival_ids.txt) to create miniVal14 subset. One has to configure the frozen inference graph of TF group so that it predicts above a threshold of 0.01 for fair comparison. We have done this and saved the model and necessary scripts [here](https://drive.google.com/file/d/1GZBAioueHyCKTBTSrvWUco2pvEuKGHW1/view?usp=sharing). Our submission to COCO 2019 can also be found [here](https://drive.google.com/file/d/1u3gfae3HLvMn3YRrQrMnwmJiTOrMU_05/view?usp=sharing).
 
