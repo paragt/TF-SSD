@@ -11,7 +11,7 @@ This codebase was built upon the [github repo](https://github.com/lambdal/lambda
 
 ## SSD with VGG-16 backbone.
 
-The original version of SSDs used VGG networks as their backbones [Liu16ECCV]. We use VGG-16 as the backbone and the code for this variant are saved in the VGG-SSD subfolder. The function of each file is self evident from its name, e.g., my_vgg3.py defines the backbone, ssd300.py defines the SSD connections, ssd_augmenter_vgg.py performs augmentation, my_train.py runs the training scheme with losses defined in losses.py. Some common operations, such as defining default/prior/anchor boxes, prediction classifiers etc. and dataset parsing are contained in ssd_common.py and dataset_feeder.py in the parent folder. 
+The original version of SSDs used VGG networks as their backbones [Liu16ECCV]. I use VGG-16 as the backbone and the code for this variant are saved in the VGG-SSD subfolder. The function of each file is self evident from its name, e.g., my_vgg3.py defines the backbone, ssd300.py defines the SSD connections, ssd_augmenter_vgg.py performs augmentation, my_train.py runs the training scheme with losses defined in losses.py. Some common operations, such as defining default/prior/anchor boxes, prediction classifiers etc. and dataset parsing are contained in ssd_common.py and dataset_feeder.py in the parent folder. 
 
 The current VGG-SSD model uses an input of 300x300 pixels and predicts 80 categories as specified by the COCO dataset. Other than the size of the default boxes at a certain scale and data augmentation techniques, the model and training remains almost the same as those of the SSD paper. 
 
@@ -22,7 +22,7 @@ Following standard protocol, the accuracies of the SSD trained on COCO are repor
 |[LambdaAI](https://drive.google.com/file/d/1xp7B3WHudEkDjcVSVAaRSa8umQIad69b/view?usp=sharing) | COCO14 Trn | 22.7 | see * below |
 |[Ours](https://drive.google.com/file/d/1B-cb7b_3UfEu_HFmlBr1-Uw5EH8m4nOu/view?usp=sharing) | COCO14 Trn| **24.0** | **23.4** |
 
-\* According to their [blog](https://lambdalabs.com/blog/how-to-implement-ssd-object-detection-in-tensorflow/) and [demo site](https://lambda-deep-learning-demo.readthedocs.io/en/latest/tutorial/ssd.html#evaluate-ssd-on-mscoco), VGG-SSD300 of LambdaAI implementation (*NOT the one mentioned above in the table*) can achieve mAP of 21.9 on COCO 17 Val set. The aforementioned model called LambdaAI in the table was trained by me using codes in this repo.
+\* According to their [blog](https://lambdalabs.com/blog/how-to-implement-ssd-object-detection-in-tensorflow/) and [demo site](https://lambda-deep-learning-demo.readthedocs.io/en/latest/tutorial/ssd.html#evaluate-ssd-on-mscoco), VGG-SSD300 of LambdaAI implementation (*NOT the one mentioned above in the table*) can achieve mAP of 21.9 on COCO 17 Val set. The aforementioned model called LambdaAI in the table was trained by me using codes from their repo.
 
 The pretrained VGG net for feature backbone converted to Tensorflow format can be found [here](https://drive.google.com/file/d/1mnJSilb5vfi3yc6bD_cifLSQAEBXEtiI/view?usp=sharing).
  
