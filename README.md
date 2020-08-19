@@ -28,7 +28,7 @@ The pretrained VGG net for feature backbone converted to Tensorflow format can b
  
 This implementation uses 12 as the smallest scale (as opposed to 21) of the default (prior/anchor) boxes at stride 16 output of VGG (i.e., conv4_3). I also do not use color distortion for data augmentation, resorting only to ssd_random_crop and random horizontal flips. 
 
-During training, the optimizer minimizes the loss, as defined by [Liu16ECCV], exactly. In order to cope with the initial large classification loss values, due to the normalization by number of deault boxes (*NOT by averaging*), I use a simple warmup learning rate scheme. See train_scripts.sh in examples subfolder for details. We also played with the learning rate schedule a little bit to improve accuracy. 
+During training, the optimizer minimizes the loss, as defined by [Liu16ECCV], exactly. In order to cope with the initial large classification loss values, due to the normalization by number of deault boxes (*NOT by averaging*), I use a simple warmup learning rate scheme. See train_scripts.sh in examples subfolder for details. I also played with the learning rate schedule a little bit to improve accuracy. 
 
 
 
@@ -49,7 +49,7 @@ As before I am reporting results in terms of mAP@[0.5:0.95] IoU on different dat
 
 Following Tensorflow [Object Detection Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md), I used the same [image ids file](https://github.com/tensorflow/models/blob/master/research/object_detection/data/mscoco_minival_ids.txt) to create miniVal14 subset. One has to configure the frozen inference graph of ssd_mobilenet_v2_coco from TF group so that it predicts above a threshold of 0.01 for fair comparison. I have done this and saved the model and necessary scripts [here](https://drive.google.com/file/d/1GZBAioueHyCKTBTSrvWUco2pvEuKGHW1/view?usp=sharing). My submission to COCO 2019 can also be found [here](https://drive.google.com/file/d/1u3gfae3HLvMn3YRrQrMnwmJiTOrMU_05/view?usp=sharing).
 
-The inference time was calculated by averaging the time required to predict the COCO14 miniVal14 set on the same computer with Nvidia GTX 1080 gpus. We must point out that model runtime depends heavily on the overall configuration of the hardware and may be different on other machines -- in this table, we use the inference time to compare the speed of the two versions (TF group and ours). Check my_eval_mb.py in MB2-SSD folder and my_eval_frozen.py in [here](https://drive.google.com/file/d/1GZBAioueHyCKTBTSrvWUco2pvEuKGHW1/view?usp=sharing) to understand how the runtime was computed. 
+The inference time was calculated by averaging the time required to predict the COCO14 miniVal14 set on the same computer with Nvidia GTX 1080 gpus. It must pointed out here that model runtime depends heavily on the overall configuration of the hardware and may be different on other machines -- in this table, I use the inference time to compare the speed of the two versions (TF group and ours). Check my_eval_mb.py in MB2-SSD folder and my_eval_frozen.py in [here](https://drive.google.com/file/d/1GZBAioueHyCKTBTSrvWUco2pvEuKGHW1/view?usp=sharing) to understand how the runtime was computed. 
 
 Based on my  analysis, I speculate that the ssd_mobilenet_v2_coco from Tensorflow group (TF group) was trained on COCO Trn14 + Val14 - miniVal14 images  -- the ? mark implies I am not 100% sure of this. I have also trained a model on only COCO Trn14, the accuracy of this model is as follows.
 
@@ -63,14 +63,14 @@ The pretrained backbone for both our models is saved [here](https://drive.google
 The major changes that provided large accuracy jumps are:
 
 1. Use of Mobilenet V2 with expansion factor 1.4 (see [Sandler18CVPR] for details).
-2. Predict detection outputs at strides 8, 16, 32 from layer8_expand, layer15_expand and layer19 respectivly(via clssification and regression heads). This modification reduced conv layers in SSD and therefore reduces computations.
+2. Predict detection outputs at strides 8, 16, 32 from layer8_expand, layer15_expand and layer19 respectivly(via classification and regression heads). This modification reduced conv layers in SSD and therefore reduces computations.
 3. Normalize classification loss by *2N* (instead of *N*), where *N* is the number of default boxes matched with groundtruth.
 4. Larger initial learning rate than that used in VGG-SSD.
 
 Other changes leading to minor improvements are
 
-1. Using ADAM instead of SGD.
-2. using 6 aspect ratios for the largest two scales of prediction.
+1. Using Adam instead of SGD optimization.
+2. Using 6 aspect ratios for the largest two scales of prediction.
 
 Exponential moving averaging (EMA) of variables did not help that much in my experiments, however the code retains the option to use it (with preferred decay rate).
 
@@ -79,7 +79,7 @@ Finally, I must point out that despite using a larger backbone and more aspect r
 
 Feedbacks/comments/suggestions greatly appreciated, either on github or directly to my email: toufiq.parag@gmail.com or [LinkedIn profile](https://www.linkedin.com/in/toufiq-parag-7190258/).
 
-###References
+### References
 
 [[Liu16ECCV](https://arxiv.org/abs/1512.02325)] Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott E. Reed, Cheng-Yang Fu and Alexander C. Berg (2016). SSD: Single Shot MultiBox Detector. ECCV 2016.
 
